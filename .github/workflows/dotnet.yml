@@ -19,5 +19,9 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore
-  
-          
+    - name: Build and Push Image
+      run: |
+        az acr login --name crmicrohacktino51 --username ${{ secrets.ACR_USERNAME }} --password ${{ secrets.ACR_PASSWORD }} &&
+        docker build -t crmicrohacktino51.azurecr.io/microhackapp:1 -f Dockerfile . &&
+        docker push crmicrohacktino51.azurecr.io/microhackapp:1
+              
